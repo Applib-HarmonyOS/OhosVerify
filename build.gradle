@@ -37,6 +37,15 @@ allprojects {
         }
 		jcenter()
     }
+	task checkstyle(type: Checkstyle) {
+        showViolations = true
+        configFile file("huawei/config/checkstyle.xml")
+        source 'entry/src/main/java'
+        source 'ohosverify/src/main/java'   
+		include '**/*.java'
+        // empty classpath
+        classpath = files()
+    }
 }
 sonarqube {
     properties {
