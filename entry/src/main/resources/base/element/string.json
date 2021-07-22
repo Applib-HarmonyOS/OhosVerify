@@ -1,0 +1,28 @@
+{
+  "string": [
+    {
+      "name": "app_name",
+      "value": "Sample App"
+    },
+    {
+      "name": "mainability_description",
+      "value": "Java_Phone_Empty Feature Ability"
+    },
+    {
+      "name": "javaformability_description",
+      "value": "Java_Phone_Empty Feature Ability"
+    },
+    {
+      "name": "oneformability_description",
+      "value": "Java_Phone_Empty Feature Ability"
+    },
+    {
+      "name": "twoformability_description",
+      "value": "Java_Phone_Empty Feature Ability"
+    },
+    {
+      "name": "formfractionability_description",
+      "value": "Java_Phone_Empty Feature Ability"
+    }
+  ]
+}

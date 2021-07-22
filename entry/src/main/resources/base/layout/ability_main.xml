@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DirectionalLayout
+    xmlns:ohos="http://schemas.huawei.com/res/ohos"
+    ohos:height="match_parent"
+    ohos:width="match_parent"
+    ohos:orientation="vertical"
+    ohos:padding="15fp">
+
+    <Button
+        ohos:id="$+id:btn_java_form"
+        ohos:height="match_content"
+        ohos:width="match_content"
+        ohos:text="Java Form Ability"
+        ohos:text_size="30fp"/>
+
+    <Button
+        ohos:id="$+id:btn_two_form"
+        ohos:height="match_content"
+        ohos:width="match_content"
+        ohos:text="Two Form Ability"
+        ohos:text_size="30fp"/>
+
+    <Button
+        ohos:id="$+id:btn_one_form"
+        ohos:height="match_content"
+        ohos:width="match_content"
+        ohos:text="One Form Ability"
+        ohos:text_size="30fp"/>
+
+    <Button
+        ohos:id="$+id:btn_form_fraction"
+        ohos:height="match_content"
+        ohos:width="match_content"
+        ohos:text="Form Fraction Ability"
+        ohos:text_size="30fp"/>
+
+</DirectionalLayout>
