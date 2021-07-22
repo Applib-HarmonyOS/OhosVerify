@@ -41,8 +41,9 @@ allprojects {
         showViolations = true
         configFile file("huawei/config/checkstyle.xml")
         source 'entry/src/main/java'
-        source 'ohosverify/src/main/java'   
+        source 'ohosverify/src/main/java'
 		include '**/*.java'
+		
         // empty classpath
         classpath = files()
     }
