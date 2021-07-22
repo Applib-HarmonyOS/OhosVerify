@@ -1,84 +1,91 @@
-# AndroidVerify
 
-Android library designed for rapid and customizable form validation.
+  
 
-[![Release](https://jitpack.io/v/pchmn/AndroidVerify.svg)](https://jitpack.io/#pchmn/AndroidVerify)
+  
+  
+# OhosVerify
 
-## Demo
-[Download sample-v1.0.2.apk](https://github.com/pchmn/AndroidVerify/raw/master/docs/android-verify-v1.0.2.apk)
+Ohos library designed for rapid and customizable form validation. 
 
-## Setup
+# Source
 
-To use this library your `minSdkVersion` must be >= 15.
+The library was ported for HarmonyOS from the mentioned Android Library:
+[AndroidVerify](https://github.com/pchmn/AndroidVerify/) (version 1.0.2)
 
-In your project level build.gradle :
-```java
-allprojects {
-    repositories {
-        ...
-        maven { url "https://jitpack.io" }
-    }
-}       
+## Features
+
+The library supports rapid and customizable form validation which can be integrated using Java Builder functions or wrapping text fields via XML. It supports validation for Numeric, Phone Number, Email, IP Address, URL, Regex, Identical fields, Minimum/Maximum/Range value, and Minimum/Maximum/Range character length. The validators can also be [customized](#advanced-usage) as required.
+
+  
+## Dependency
+1. For using LiteGo module in sample app, include the source code and add the below dependencies in entry/build.gradle to generate hap/support.har.
 ```
+	dependencies {
+		implementation project(':ohosverify')
+		testCompile 'junit:junit:4.12'
+	}
+```
+2. For using LiteGo module in separate application using har file, add the har file in the entry/libs folder and add the dependencies in entry/build.gradle file.
+```
+	dependencies {
+		implementation fileTree(dir: 'libs', include: ['*.har'])
+		testCompile 'junit:junit:4.12'
+	}
 
-In your app level build.gradle :
-```java
-dependencies {
-    compile 'com.github.pchmn:AndroidVerify:1.0.2'
-}      
 ```
 
 ## Usage
 
-You can use **AndroidVerify** with any `View` that extends the original [`EditText`](https://developer.android.com/reference/android/widget/EditText.html) (such as 
-[`MaterialEditText`](https://github.com/rengwuxian/MaterialEditText) for example).
+You can use **OhosVerify** with any `Component` that extends the original [`TextField`].
 
 ### With XML
 
-You just have to wrap your `EditText` with an `InputValidator` view. Example for an email and a custom regex :
+You just have to wrap your `TextField` with an `InputValidator` view. Example for an email and a custom regex :
 
 ```xml
-<com.pchmn.androidverify.InputValidator
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+<com.pchmn.ohosverify.InputValidator
+    ohos:width="wrap_content"
+    ohos:height="wrap_content"
     app:required="true"
+    app:validator="isEmail"
     app:requiredMessage="Email required">
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textEmailAddress"
-        android:hint="Email"/>
+    <TextField
+        ohos:width="match_parent"
+        ohos:height="match_content"
+        ohos:inputType="textEmailAddress"
+        ohos:hint="Email"/>
 
-</com.pchmn.androidverify.InputValidator>
+</com.pchmn.ohosverify.InputValidator>
             
-<com.pchmn.androidverify.InputValidator
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+<com.pchmn.ohosverify.InputValidator
+    ohos:width="match_content"
+    ohos:height="match_content"
     app:regex="^[0-9]{4}$"
     app:errorMessage="4 digits only">
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Regex 4 digits (custom error msg)"/>
+    <TextField
+        ohos:width="match_content"
+        ohos:height="match_content"
+        ohos:hint="Regex 4 digits (custom error msg)"/>
 
-</com.pchmn.androidverify.InputValidator>            
+</com.pchmn.ohosverify.InputValidator>            
 ```
-`InputValidator` will automatically recognized **textEmailAdress**, **phone** and **number** `inputType` and use the appropriate validator, like in the example with the email field.
+
+**Note:** Be sure to add `xmlns:app="http://schemas.huawei.com/hap/res-auto"` next to `xmlns:ohos` for custom attributes to work.
+
+`InputValidator` can be set to recognize email, phone, IP address, URL or number using `validator` attribute.
 <br>If you don't specify an `errorMessage` or a `requiredMessage`, predefined messages will be shown if the field is not valid.
 
 Then **validate** your form :
 ```java
-// initiate from an activity
-// 'this' represents an Activity
-// you can specify if you want to show error messages or not
-Form form = new Form.Builder(this)
-    .showErrors(true)
-    .build();
+// Initiate using context and a ComponentContainer that holds the InputValidators
+// This example assumes a DirectionalLayout that contains the InputValidators
 
-// or initiate from a fragment or from what you want by providing your own root view
-Form form = new Form.Builder(getContext(), rootView)
+DirectionalLayout mComponentContainer = 
+	(DirectionalLayout) findComponentById(ResourceTable.Id_form);
+
+Form form = new Form.Builder(this, mComponentContainer)
     .showErrors(true)
     .build();
 
@@ -97,10 +104,10 @@ You can create programmatically `InputValidator` without passing by XML ([see al
 
 ```java
 // create the validator with the Builder
-// emailEditText is the EditText to validate 
+// emailTextField is the TextField to validate 
 // 'this' represents a Context
 InputValidator emailValidator = new InputValidator.Builder(this)
-    .on(emailEditText)
+    .on(emailTextField)
     .required(true)
     .validatorType(InputValidator.IS_EMAIL)
     .build();
@@ -124,7 +131,7 @@ You can create programmatically without using the Builders, but it is safer and 
 ### Attributes
 
 #### `InputValidator`
-All the attributes that can be used with the `InputValidator` view. They can be used in XML or in Java with setters :
+All the attributes that can be used with `InputValidator` . They can be used in XML or in Java with setters :
 
 Attribute | Type | Description
 --- | --- | ---
@@ -135,16 +142,18 @@ Attribute | Type | Description
 `app:minValue` | `int` | The minimum value of the field (must be numeric)
 `app:maxValue` | `int` | The maximum value of the field (must be numeric)
 `app:regex` | `string` | Use a regex to validate a field
-`app:identicalAs` | `reference id` | The id of an EditText to which the field must be equal
+`app:identicalAs` | `reference id` | The id of an TextField to which the field must be equal <sup>*</sup>
 `app:errorMessage` | `string` | The message to display if the field is not valid
 `app:requiredMessage` | `string` | The message to display if the field is empty but was required. It implies that the field is required
 
+<sup>*</sup> Has limitations. Use Java builder methods for identical validators to avoid any issues.
+
 #### `Form`
-All the attributes that can be used with the `Form` view. They can be used in XML or in Java with setters :
+All the attributes that can be used with `Form`. They can be used in XML or in Java with setters :
 
 Attribute | Type | Default | Description
 --- | --- | --- | ---
-`app:showErrors` | `boolean` | `true` | Whether the errors must be shown on each EditText or not
+`app:showErrors` | `boolean` | `true` | Whether the errors must be shown on each TextField or not
 
 
 ## Advanced Usage
@@ -154,9 +163,9 @@ Attribute | Type | Default | Description
 You can use a custom validator for an `InputValidator` : 
 ```java
 // the InputValidator was present in the XML layout
-InputValidator inputValidator = (InputValidator) findViewById(R.id.input_validator);
+InputValidator mInputValidator = (InputValidator) findComponentById(ResourceTable.Id_input_validator);
 // your custom validator must extends AbstractValidator class
-inputValidator.setCustomValidator(new AbstractValidator() {
+mInputValidator.setCustomValidator(new AbstractValidator() {
     @Override
     public boolean isValid(String value) {
         return value.equals("ok man");
@@ -171,7 +180,7 @@ inputValidator.setCustomValidator(new AbstractValidator() {
 
 // or create your InputValidator with the Builder
 InputValidator inputValidator = new InputValidator.Builder(this)
-    .on(anEditText)
+    .on(aTextField)
     .customValidator(new AbstractValidator() {
         @Override
         public boolean isValid(String value) {
@@ -187,9 +196,9 @@ InputValidator inputValidator = new InputValidator.Builder(this)
 ```
 
 
-### Use the `Form` view in XML
+### Use the `Form` component in XML
 
-If you want, you can use a `Form` view directly in XML. This view extends [`LinearLayout`](https://developer.android.com/reference/android/widget/LinearLayout.html). It must wrap all the fields you want to check.
+If you want, you can use a `Form` component directly in XML. This view extends [`DirectionalLayout`](https://developer.harmonyos.com/en/docs/documentation/doc-references/directionallayout-0000001054238715). It must wrap all the fields you want to check.
 
 It can be useful for these reasons : 
 * You don't have to instantiate a `Form` object before validate the form
@@ -198,82 +207,104 @@ It can be useful for these reasons :
 
 #### XML
 ```xml
-    <!-- form1 -->
-    <com.pchmn.androidverify.Form
-        android:id="@+id/form1"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:showErrors="false">
+<!-- form1 -->
+<com.pchmn.ohosverify.Form
+	ohos:id="$+id:form1"
+	ohos:orientation="vertical"
+	ohos:width="match_parent"
+	ohos:height="match_content"
+	ohos:padding="16fp">
 
-        <!-- email -->
-        <com.pchmn.androidverify.InputValidator
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+	<!-- email -->
+	<com.pchmn.ohosverify.InputValidator
+		ohos:width="match_content"
+		ohos:height="match_content">
 
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textEmailAddress"
-                android:hint="Email"/>
+		<TextField
+			ohos:width="match_parent"
+			ohos:height="match_content"
+			ohos:text_size="20fp"
+			ohos:hint="Email"/>
 
-        </com.pchmn.androidverify.InputValidator>
+	</com.pchmn.ohosverify.InputValidator>
 
-        <!-- password -->
-        <com.pchmn.androidverify.InputValidator
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:required="true"
-            app:minLength="6">
+	<!-- password -->
+	<com.pchmn.ohosverify.InputValidator
+		ohos:width="match_content"
+		ohos:height="match_content"
+		app:required="true"
+		app:minLength="6">
 
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textPassword"
-                android:hint="Password (6 char. min) *" />
+		<TextField
+			ohos:width="match_parent"
+			ohos:height="match_content"
+			ohos:text_input_type="pattern_password"
+			ohos:text_size="20fp"
+			ohos:hint="Password (6 char. min) *" />
 
-        </com.pchmn.androidverify.InputValidator>
+	</com.pchmn.ohosverify.InputValidator>
 
-    </com.pchmn.androidverify.Form>
-    <!-- /form1 -->
+	<!-- submit form -->
+	<Button
+		ohos:id="$+id:validate_form1"
+		ohos:width="match_content"
+		ohos:height="match_content"
+		ohos:text_size="20fp"
+		ohos:text="Validate form1"/>
 
-    <!-- form2 -->
-    <com.pchmn.androidverify.Form
-        android:id="@+id/form2"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+</com.pchmn.ohosverify.Form>
+<!-- /form1 -->
 
-        <!-- phone number -->
-        <com.pchmn.androidverify.InputValidator
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:required="true">
+<!-- form2 -->
+<com.pchmn.ohosverify.Form
+	ohos:id="$+id:form2"
+	ohos:orientation="vertical"
+	ohos:width="match_parent"
+	ohos:height="match_content"
+	ohos:below="$+id:form1"
+	ohos:padding="16fp">
 
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="phone"
-                android:hint="Phone number *"/>
+	<!-- phone number -->
+	<com.pchmn.ohosverify.InputValidator
+		ohos:id="$+id:tiv1"
+		ohos:width="match_content"
+		ohos:height="match_content"
+		app:required="true">
 
-        </com.pchmn.androidverify.InputValidator>
+		<TextField
+			ohos:width="match_parent"
+			ohos:height="match_content"
+			ohos:text_input_type="pattern_number"
+			ohos:text_size="20fp"
+			ohos:hint="Phone number *"/>
 
-        <!-- age -->
-        <com.pchmn.androidverify.InputValidator
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:minValue="12">
+	</com.pchmn.ohosverify.InputValidator>
 
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="number"
-                android:hint="Age (12 min)" />
+	<!-- age -->
+	<com.pchmn.ohosverify.InputValidator
+		ohos:width="match_content"
+		ohos:height="match_content"
+		app:minValue="12">
 
-        </com.pchmn.androidverify.InputValidator>
+		<TextField
+			ohos:width="match_parent"
+			ohos:height="match_content"
+			ohos:text_input_type="pattern_number"
+			ohos:text_size="20fp"
+			ohos:hint="Age (12 min)" />
 
-    </com.pchmn.androidverify.Form>
-    <!-- /form2 -->
+	</com.pchmn.ohosverify.InputValidator>
+
+	<!-- submit form -->
+	<Button
+		ohos:id="$+id:validate_form2"
+		ohos:width="match_content"
+		ohos:height="match_content"
+		ohos:text_size="20fp"
+		ohos:text="Validate form2"/>
+
+</com.pchmn.ohosverify.Form>
+<!-- /form2 -->
 ```
 
 #### Validate the forms
@@ -281,8 +312,8 @@ It can be useful for these reasons :
 ```java
 // get the forms
 // you don't have to instantiate them because they already know the fields they have to validate
-Form form1 = (Form) findViewById(R.id.form1);
-Form form2 = (Form) findViewById(R.id.form2);
+Form form1 = (Form) findComponentById(ResourceTable.Id_form1);
+Form form2 = (Form) findComponentById(ResourceTable.Id_form2);
 
 // validate form1
 if(form1.isValid()) {
@@ -313,7 +344,7 @@ InputValidator inputValidator = new InputValidator.Builder(this)
 Method | Return value | Description
 --- | --- | ---
 `InputValidator.Builder(Context context)` | `InputValidator.Builder` | The constructor of the builder
-`on(EditText editText)` | `InputValidator.Builder` | The EditText to validate
+`on(TextField textField)` | `InputValidator.Builder` | The TextField to validate
 `required(boolean required)` | `InputValidator.Builder` | Whether the field is required or not
 `validatorType(int type)` | `InputValidator.Builder` | Use a validator type predefined by FormValidator. You can use **InputValidator.IS_EMAIL**, **InputValidator.IS_PHONE_NUMBER**, **InputValidator.IS_NUMERIC**, **InputValidator.IS_URL** or **InputValidator.IS_IP**
 `customValidator(AbstractValidator validator)` | `InputValidator.Builder` | Use a custom validator
@@ -322,8 +353,7 @@ Method | Return value | Description
 `minValue(int value)` | `InputValidator.Builder` | The minimum value of the field (must be numeric)
 `maxValue(int value)` | `InputValidator.Builder` | The maximum value of the field (must be numeric)
 `regex(String regex)` | `InputValidator.Builder` | Use a regex to validate a field
-`identicalAs(int id)` | `InputValidator.Builder` | The id of an EditText to which the field must be equal
-`identicalAs`(EditText editText)` | `InputValidator.Builder` | An other EditText to which the field must be equal
+`identicalAs(TextField textField` | `InputValidator.Builder` | An other TextField to which the field must be equal
 `errorMessage(String message)` | `InputValidator.Builder` | The message to display if the field is not valid
 `requiredMessage(String message)` | `InputValidator.Builder` | The message to display if the field is empty but was required
 `build()` | `InputValidator` | Create the `InputValidator` object
@@ -338,21 +368,21 @@ Form form = new Form.Builder(this)
 
 Method | Return value | Description
 --- | --- | ---
-`Form.Builder(Activity activity)` | `Form.Builder` | First constructor of the builder
-`Form.Builder**(Context context, View rootView)` | `Form.Builder` | Second constructor of the builder
-`Form.Builder(Context context)` | `Form.Builder` | Third constructor of the builder. Be aware of possibly inflating errors using this constructor
+`Form.Builder**(Context context, Component rootView)` | `Form.Builder` | Constructor of the builder
 `addInputValidator(InputValidator validator)` | `Form.Builder` | Add an `InputValidator`
-`showErrors(boolean show)` | `Form.Builder` | Whether the errors must be shown on each EditText or not
+`showErrors(boolean show)` | `Form.Builder` | Whether the errors must be shown on each TextField or not
 `build()` | `Form` | Create the `Form` object
 
 ## Sample
 
-A sample app with some use cases of the library is available on this [link](https://github.com/pchmn/FormValidator/tree/master/sample)
+A sample app with some use cases of the library is available on this [link](entry/)
 
-## Credits
+## Future Work
 
-* [Ratifier](https://github.com/hamadakram/ratifier?utm_source=android-arsenal.com&utm_medium=referral&utm_campaign=5441)
-* [Android-Validator](https://github.com/throrin19/Android-Validator)
+The error are shown on calling `isValid()` method via text field's hint text as shown. This can be toggled on and off via the `showErrors()` method in form builder. Future work would include showing error message as a separate floating text.
+
+![Before Errors](readme_resources/sample_before.PNG)
+![After Errors](readme_resources/sample_after.PNG)
 
 ## License
 

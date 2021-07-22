@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DependentLayout
+    xmlns:ohos="http://schemas.huawei.com/res/ohos"
+    ohos:height="match_parent"
+    ohos:width="match_parent">
+
+        <DirectionalLayout
+            ohos:id="$+id:form1"
+            ohos:height="match_parent"
+            ohos:width="match_parent"
+            ohos:orientation="vertical"
+            ohos:padding="16fp">
+
+                <Text
+                    ohos:height="match_content"
+                    ohos:width="match_content"
+                    ohos:text="Email"
+                    ohos:text_size="15fp"/>
+
+                <!-- email -->
+                <TextField
+                    ohos:id="$+id:email"
+                    ohos:width="match_parent"
+                    ohos:height="match_content"
+                    ohos:text_size="20fp"
+                    ohos:hint="Email"/>
+
+                <Text
+                    ohos:height="match_content"
+                    ohos:width="match_content"
+                    ohos:text="Password"
+                    ohos:text_size="15fp"/>
+
+                <!-- password -->
+                <TextField
+                    ohos:id="$+id:password"
+                    ohos:width="match_parent"
+                    ohos:height="match_content"
+                    ohos:text_size="20fp"
+                    ohos:text_input_type="pattern_password"
+                    ohos:hint="Password (6 char. min) *" />
+
+
+                <Text
+                    ohos:height="match_content"
+                    ohos:width="match_content"
+                    ohos:text="Confirm Password"
+                    ohos:text_size="15fp"/>
+
+                <!-- confirm password -->
+                <TextField
+                    ohos:id="$+id:confirm_password"
+                    ohos:width="match_parent"
+                    ohos:height="match_content"
+                    ohos:text_size="20fp"
+                    ohos:text_input_type="pattern_password"
+                    ohos:hint="Confirm password *" />
+
+                <!-- submit form -->
+                <Button
+                    ohos:id="$+id:validate_java"
+                    ohos:width="match_content"
+                    ohos:height="match_content"
+                    ohos:text_size="20fp"
+                    ohos:text="Validate"/>
+
+        </DirectionalLayout>
+
+</DependentLayout>

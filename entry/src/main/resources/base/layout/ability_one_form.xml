@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DirectionalLayout
+    xmlns:ohos="http://schemas.huawei.com/res/ohos"
+    xmlns:app="http://schemas.huawei.com/hap/res-auto"
+    ohos:height="match_parent"
+    ohos:width="match_parent"
+    ohos:orientation="vertical">
+
+    <NestedScrollView
+        ohos:width="match_content"
+        ohos:height="match_content">
+
+        <!-- form -->
+        <DirectionalLayout
+            ohos:id="$+id:form"
+            ohos:orientation="vertical"
+            ohos:width="match_parent"
+            ohos:height="match_parent"
+            ohos:padding="16fp">
+
+            <Text
+                ohos:height="match_content"
+                ohos:width="match_content"
+                ohos:text="Custom Required Message"
+                ohos:text_size="15fp"/>
+
+            <!-- custom required message -->
+            <com.pchmn.ohosverify.InputValidator
+                ohos:width="match_content"
+                ohos:height="match_content"
+                app:requiredMessage="Please enter a value">
+
+                <TextField
+                    ohos:width="match_parent"
+                    ohos:height="match_content"
+                    ohos:text_size="20fp"
+                    ohos:hint="Custom required message *"/>
+
+            </com.pchmn.ohosverify.InputValidator>
+
+            <Text
+                ohos:height="match_content"
+                ohos:width="match_content"
+                ohos:text="Email"
+                ohos:text_size="15fp"/>
+
+            <!-- email -->
+            <com.pchmn.ohosverify.InputValidator
+                ohos:width="match_content"
+                ohos:height="match_content"
+                app:validator="isEmail">
+
+                <TextField
+                    ohos:width="match_parent"
+                    ohos:height="match_content"
+                    ohos:text_size="20fp"
+                    ohos:hint="Email"/>
+
+            </com.pchmn.ohosverify.InputValidator>
+
+            <Text
+                ohos:height="match_content"
+                ohos:width="match_content"
+                ohos:text="Phone Number"
+                ohos:text_size="15fp"/>
+
+            <!-- phone number -->
+            <com.pchmn.ohosverify.InputValidator
+                ohos:width="match_content"
+                ohos:height="match_content"
+                app:required="true"
+                app:validator="isPhoneNumber">
+
+                <TextField
+                    ohos:width="match_parent"
+                    ohos:height="match_content"
+                    ohos:text_input_type="pattern_number"
+                    ohos:text_size="20fp"
+                    ohos:hint="Phone number *"/>
+
+            </com.pchmn.ohosverify.InputValidator>
+
+            <Text
+                ohos:height="match_content"
+                ohos:width="match_content"
+                ohos:text="Number"
+                ohos:text_size="15fp"/>
+            <!-- number -->
+            <com.pchmn.ohosverify.InputValidator
+                ohos:width="match_content"
+                ohos:height="match_content">
+
+                <TextField
+                    ohos:width="match_parent"
+                    ohos:height="match_content"
+                    ohos:text_input_type="pattern_number"
+                    ohos:text_size="20fp"
+                    ohos:hint="Number"/>
+
+            </com.pchmn.ohosverify.InputValidator>
+
+            <Text
+                ohos:height="match_content"
+                ohos:width="match_content"
+                ohos:text="Regex"
+                ohos:text_size="15fp"/>
+
+            <!-- regex -->
+            <com.pchmn.ohosverify.InputValidator
+                ohos:width="match_content"
+                ohos:height="match_content"
+                app:regex="^[0-9]{4}$"
+                app:errorMessage="4 digits only">
+
+                <TextField
+                    ohos:width="match_parent"
+                    ohos:height="match_content"
+                    ohos:text_size="20fp"
+                    ohos:hint="Regex 4 digits (custom error msg)"/>
+
+            </com.pchmn.ohosverify.InputValidator>
+
+            <Text
+                ohos:height="match_content"
+                ohos:width="match_content"
+                ohos:text="Password"
+                ohos:text_size="15fp"/>
+
+            <!-- password -->
+            <com.pchmn.ohosverify.InputValidator
+                ohos:width="match_content"
+                ohos:height="match_content"
+                app:required="true">
+
+                <TextField
+                    ohos:id="$+id:password1"
+                    ohos:width="match_parent"
+                    ohos:height="match_content"
+                    ohos:text_input_type="pattern_password"
+                    ohos:text_size="20fp"
+                    ohos:hint="Password *" />
+
+            </com.pchmn.ohosverify.InputValidator>
+
+            <Text
+                ohos:height="match_content"
+                ohos:width="match_content"
+                ohos:text="Confirm Password"
+                ohos:text_size="15fp"/>
+
+            <!-- confirm password -->
+            <com.pchmn.ohosverify.InputValidator
+                ohos:width="match_content"
+                ohos:height="match_content"
+                app:required="true"
+                app:identicalAs="$+id:password1">
+
+                <TextField
+                    ohos:width="match_parent"
+                    ohos:height="match_content"
+                    ohos:text_input_type="pattern_password"
+                    ohos:text_size="20fp"
+                    ohos:hint="Confirm password *"/>
+
+            </com.pchmn.ohosverify.InputValidator>
+
+            <Text
+                ohos:height="match_content"
+                ohos:width="match_content"
+                ohos:text="At least 6 characters long"
+                ohos:text_size="15fp"/>
+
+            <!-- 6 characters min -->
+            <com.pchmn.ohosverify.InputValidator
+                ohos:width="match_content"
+                ohos:height="match_content"
+                app:minLength="6">
+
+                <TextField
+                    ohos:width="match_parent"
+                    ohos:height="match_content"
+                    ohos:text_size="20fp"
+                    ohos:hint="At least 6 characters long" />
+
+            </com.pchmn.ohosverify.InputValidator>
+
+            <Text
+                ohos:height="match_content"
+                ohos:width="match_content"
+                ohos:text="Between 2 and 8 characters"
+                ohos:text_size="15fp"/>
+
+            <!-- between 2 and 8 characters -->
+            <com.pchmn.ohosverify.InputValidator
+                ohos:width="match_content"
+                ohos:height="match_content"
+                app:minLength="2"
+                app:maxLength="8">
+
+                <TextField
+                    ohos:width="match_parent"
+                    ohos:height="match_content"
+                    ohos:text_size="20fp"
+                    ohos:hint="Between 2 and 8 characters" />
+
+            </com.pchmn.ohosverify.InputValidator>
+
+            <Text
+                ohos:height="match_content"
+                ohos:width="match_content"
+                ohos:text="Value between 15 and 50"
+                ohos:text_size="15fp"/>
+
+            <!-- between 15 and 50 -->
+            <com.pchmn.ohosverify.InputValidator
+                ohos:width="match_content"
+                ohos:height="match_content"
+                app:minValue="15"
+                app:maxValue="50">
+
+                <TextField
+                    ohos:width="match_parent"
+                    ohos:height="match_content"
+                    ohos:text_input_type="pattern_number"
+                    ohos:text_size="20fp"
+                    ohos:hint="Between 15 and 50 (value)" />
+
+            </com.pchmn.ohosverify.InputValidator>
+
+            <Text
+                ohos:height="match_content"
+                ohos:width="match_content"
+                ohos:text="Custom Validator"
+                ohos:text_size="15fp"/>
+
+            <!-- Custom validator -->
+            <com.pchmn.ohosverify.InputValidator
+                ohos:id="$+id:custom_validator"
+                ohos:width="match_content"
+                ohos:height="match_content"
+                app:required="true">
+
+                <TextField
+                    ohos:width="match_parent"
+                    ohos:height="match_content"
+                    ohos:text_size="20fp"
+                    ohos:hint="Custom validator (== 'ok man') *" />
+
+            </com.pchmn.ohosverify.InputValidator>
+
+            <!-- submit button -->
+            <Button
+                ohos:id="$+id:validate_one_form"
+                ohos:width="match_content"
+                ohos:height="match_content"
+                ohos:text_size="25fp"
+                ohos:text="Validate"/>
+
+        </DirectionalLayout>
+        <!-- /form -->
+
+    </NestedScrollView>
+
+</DirectionalLayout>

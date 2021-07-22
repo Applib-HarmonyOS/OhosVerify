@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DependentLayout
+    xmlns:ohos="http://schemas.huawei.com/res/ohos"
+    xmlns:app="http://schemas.huawei.com/hap/res-auto"
+    ohos:height="match_parent"
+    ohos:width="match_parent"
+    ohos:orientation="vertical">
+
+    <!-- form -->
+    <com.pchmn.ohosverify.Form
+        ohos:id="$+id:fragment_form1"
+        ohos:orientation="vertical"
+        ohos:width="match_parent"
+        ohos:height="match_content"
+        ohos:padding="16fp">
+
+        <Text
+            ohos:height="match_content"
+            ohos:width="match_content"
+            ohos:text="Email"
+            ohos:text_size="15fp"/>
+
+        <!-- email -->
+        <com.pchmn.ohosverify.InputValidator
+            ohos:width="match_content"
+            ohos:height="match_content"
+            app:validator="isEmail">
+
+            <TextField
+                ohos:width="match_parent"
+                ohos:height="match_content"
+                ohos:hint="Email"
+                ohos:text_size="20fp"/>
+
+        </com.pchmn.ohosverify.InputValidator>
+
+        <Text
+            ohos:height="match_content"
+            ohos:width="match_content"
+            ohos:text="Password"
+            ohos:text_size="15fp"/>
+
+        <!-- password -->
+        <com.pchmn.ohosverify.InputValidator
+            ohos:width="match_content"
+            ohos:height="match_content"
+            app:required="true"
+            app:minLength="6">
+
+            <TextField
+                ohos:width="match_parent"
+                ohos:height="match_content"
+                ohos:text_input_type="pattern_password"
+                ohos:hint="Password (6 char. min) *"
+                ohos:text_size="20fp"/>
+
+        </com.pchmn.ohosverify.InputValidator>
+
+        <!-- submit form -->
+        <Button
+            ohos:id="$+id:validate_fraction"
+            ohos:width="match_content"
+            ohos:height="match_content"
+            ohos:text="Validate"
+            ohos:text_size="25fp"/>
+
+    </com.pchmn.ohosverify.Form>
+    <!-- /form -->
+
+</DependentLayout>
