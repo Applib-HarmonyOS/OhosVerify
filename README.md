@@ -1,4 +1,5 @@
-
+[![Build](https://github.com/applibgroup/OhosVerify/actions/workflows/main.yml/badge.svg)](https://github.com/applibgroup/OhosVerify/actions/workflows/main.yml)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=applibgroup_OhosVerify&metric=alert_status)](https://sonarcloud.io/dashboard?id=applibgroup_OhosVerify)
   
 
   
