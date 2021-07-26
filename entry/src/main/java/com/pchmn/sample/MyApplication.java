@@ -16,8 +16,8 @@
 
 package com.pchmn.sample;
 
-import com.pchmn.ohosverify.App;
 import ohos.aafwk.ability.AbilityPackage;
+import com.pchmn.ohosverify.App;
 
 /**
  * Main application class.

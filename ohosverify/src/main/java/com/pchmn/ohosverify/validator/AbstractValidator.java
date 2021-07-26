@@ -1,11 +1,11 @@
 package com.pchmn.ohosverify.validator;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import ohos.hiviewdfx.HiLog;
+import ohos.hiviewdfx.HiLogLabel;
 import com.pchmn.ohosverify.App;
 import com.pchmn.ohosverify.ResourceTable;
-import java.io.IOException;
-import ohos.global.resource.NotExistException;
-import ohos.global.resource.WrongTypeException;
-
 
 /**
  * An abstract class that all validators extend.
@@ -13,6 +13,7 @@ import ohos.global.resource.WrongTypeException;
 public abstract class AbstractValidator {
 
     String mErrorMessage;
+    static final HiLogLabel LABEL = new HiLogLabel(HiLog.LOG_APP, 0x00201, "MY_TAG");
 
     /**
      * Constructor to initialize error message.
@@ -21,12 +22,10 @@ public abstract class AbstractValidator {
         try {
             mErrorMessage = App.getInstance().getContext().getResourceManager()
                     .getElement(ResourceTable.String_error_invalid_field).getString();
-        } catch (NotExistException e) {
-            e.printStackTrace();
-        } catch (WrongTypeException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            StringWriter errors = new StringWriter();
+            e.printStackTrace(new PrintWriter(errors));
+            HiLog.error(LABEL, e.toString());
         }
     }
 

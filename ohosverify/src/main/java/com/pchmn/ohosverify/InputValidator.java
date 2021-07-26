@@ -258,7 +258,7 @@ public class InputValidator extends DependentLayout implements Component.Estimat
             mRequiredValidator.setErrorMessage(mRequiredMessage);
         }
 
-        if(firstHint) {
+        if (firstHint) {
             defaultHint = mEditText.getHint();
             firstHint = false;
         }
@@ -328,7 +328,7 @@ public class InputValidator extends DependentLayout implements Component.Estimat
         }
         String value = mEditText.getText();
         // if already invalid and no value set
-        if (mEditText.getHintColor().equals(Color.RED) && (value==null || value.length()==0)) {
+        if (mEditText.getHintColor().equals(Color.RED) && (value == null || value.length() == 0)) {
             return false;
         }
 
