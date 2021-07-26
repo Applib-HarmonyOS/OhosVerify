@@ -1,10 +1,10 @@
 package com.pchmn.ohosverify.validator;
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
 import ohos.hiviewdfx.HiLog;
 import com.pchmn.ohosverify.App;
 import com.pchmn.ohosverify.ResourceTable;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 
 /**
  * Basic unit that validates if the value lies within a given range.
@@ -28,32 +28,30 @@ public class RangeValueValidator extends AbstractValidator {
 
         mMinValue = minValue;
         mMaxValue = maxValue;
-        fetchErrorMessage();
+        fetchErrorMessage(false);
     }
 
     @Override
     public boolean isValid(String value) {
         try {
             double d = Double.parseDouble(value);
-            fetchErrorMessage();
+            fetchErrorMessage(false);
             return d >= mMinValue && d <= mMaxValue;
         } catch (NumberFormatException nfe) {
-            try {
-                mErrorMessage = App.getInstance().getContext().getResourceManager()
-                        .getElement(ResourceTable.String_error_invalid_number).getString();
-            } catch (Exception e) {
-                StringWriter errors = new StringWriter();
-                e.printStackTrace(new PrintWriter(errors));
-                HiLog.error(LABEL, e.toString());
-            }
+            fetchErrorMessage(true);
             return false;
         }
     }
 
-    private void fetchErrorMessage()  {
+    private void fetchErrorMessage(boolean isError) {
         try {
-            mErrorMessage = App.getInstance().getContext().getResourceManager()
-                    .getElement(ResourceTable.String_error_range_value).getString(mMinValue, mMaxValue);
+            if (isError) {
+                mErrorMessage = App.getInstance().getContext().getResourceManager()
+                        .getElement(ResourceTable.String_error_range_value).getString(mMinValue, mMaxValue);
+            } else {
+                mErrorMessage = App.getInstance().getContext().getResourceManager()
+                        .getElement(ResourceTable.String_error_invalid_number).getString();
+            }
         } catch (Exception e) {
             StringWriter errors = new StringWriter();
             e.printStackTrace(new PrintWriter(errors));

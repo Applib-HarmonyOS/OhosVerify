@@ -1,11 +1,11 @@
 package com.pchmn.ohosverify.validator;
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.util.regex.Pattern;
 import ohos.hiviewdfx.HiLog;
 import com.pchmn.ohosverify.App;
 import com.pchmn.ohosverify.ResourceTable;
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.util.regex.Pattern;
 
 /**
  * Basic unit that validates expression on custom regex.

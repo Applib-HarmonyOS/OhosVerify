@@ -1,11 +1,11 @@
 package com.pchmn.ohosverify.validator;
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
 import ohos.agp.components.TextField;
 import ohos.hiviewdfx.HiLog;
 import com.pchmn.ohosverify.App;
 import com.pchmn.ohosverify.ResourceTable;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 
 /**
  * Basic unit that checks if two fields are identical.
