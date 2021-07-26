@@ -66,7 +66,8 @@ public class InputValidator extends DependentLayout implements Component.Estimat
     private String mRequiredMessage;
     // build
     private boolean mBuilt = false;
-
+    private String defaultHint;
+    private boolean firstHint = true;
     static final HiLogLabel LABEL = new HiLogLabel(HiLog.LOG_APP, 0x00201, "MY_TAG");
 
     /**
@@ -257,6 +258,11 @@ public class InputValidator extends DependentLayout implements Component.Estimat
             mRequiredValidator.setErrorMessage(mRequiredMessage);
         }
 
+        if(firstHint) {
+            defaultHint = mEditText.getHint();
+            firstHint = false;
+        }
+
         // mBuilt
         mBuilt = true;
     }
@@ -321,9 +327,10 @@ public class InputValidator extends DependentLayout implements Component.Estimat
             buildValidator();
         }
         String value = mEditText.getText();
-
-        // reset error
-        mEditText.setHintColor(Color.GRAY);
+        // if already invalid and no value set
+        if (mEditText.getHintColor().equals(Color.RED) && (value==null || value.length()==0)) {
+            return false;
+        }
 
         // test requirement
         if (!mRequiredValidator.isValid(value)) {
@@ -349,6 +356,9 @@ public class InputValidator extends DependentLayout implements Component.Estimat
             }
             return false;
         }
+        // reset error
+        mEditText.setHintColor(Color.GRAY);
+        mEditText.setHint(defaultHint);
         return true;
     }
 

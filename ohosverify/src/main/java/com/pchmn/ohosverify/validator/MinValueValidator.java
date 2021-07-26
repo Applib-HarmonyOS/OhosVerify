@@ -1,12 +1,17 @@
 package com.pchmn.ohosverify.validator;
 
+import com.pchmn.ohosverify.App;
+import com.pchmn.ohosverify.ResourceTable;
+import java.io.IOException;
+import ohos.global.resource.NotExistException;
+import ohos.global.resource.WrongTypeException;
+
 /**
  * Basic unit that validates min value.
  */
 public class MinValueValidator extends AbstractValidator {
 
     private int mMinValue;
-    private static String mErrorPrefix = "This field must be greater than ";
 
     /**
      * Constructor for MinValueValidator.
@@ -15,18 +20,40 @@ public class MinValueValidator extends AbstractValidator {
      */
     public MinValueValidator(int value) {
         mMinValue = value;
-        mErrorMessage = mErrorPrefix + mMinValue;
+        fetchErrorMessage();
     }
 
     @Override
     public boolean isValid(String value) {
         try {
             double d = Double.parseDouble(value);
-            mErrorMessage = mErrorPrefix + mMinValue;
+            fetchErrorMessage();
             return d >= mMinValue;
         } catch (NumberFormatException nfe) {
-            mErrorMessage = mErrorPrefix + mMinValue;
+            try {
+                mErrorMessage = App.getInstance().getContext().getResourceManager()
+                        .getElement(ResourceTable.String_error_invalid_number).getString();
+            } catch (NotExistException e) {
+                e.printStackTrace();
+            } catch (WrongTypeException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             return false;
+        }
+    }
+
+    private void fetchErrorMessage() {
+        try {
+            mErrorMessage = App.getInstance().getContext().getResourceManager()
+                    .getElement(ResourceTable.String_error_min_value).getString(mMinValue);
+        } catch (NotExistException e) {
+            e.printStackTrace();
+        } catch (WrongTypeException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 

@@ -50,10 +50,10 @@ public class FormFraction extends Fraction {
         mValidate = (Button) mComponent.findComponentById(ResourceTable.Id_validate_fraction);
         mValidate.setClickedListener(component -> {
             if (mForm.isValid()) {
-                String msg = "Form is valid";
+                String msg = "This form is valid";
                 new ToastDialog(mComponent.getContext()).setDuration(1000).setText(msg).show();
             } else {
-                String msg = "Form is invalid";
+                String msg = "This form is not valid";
                 new ToastDialog(mComponent.getContext()).setDuration(1000).setText(msg).show();
             }
         });

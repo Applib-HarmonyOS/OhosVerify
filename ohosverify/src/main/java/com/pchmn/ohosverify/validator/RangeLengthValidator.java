@@ -1,5 +1,11 @@
 package com.pchmn.ohosverify.validator;
 
+import com.pchmn.ohosverify.App;
+import com.pchmn.ohosverify.ResourceTable;
+import java.io.IOException;
+import ohos.global.resource.NotExistException;
+import ohos.global.resource.WrongTypeException;
+
 /**
  * Basic unit that validates if the length lies within a given range.
  */
@@ -28,7 +34,16 @@ public class RangeLengthValidator extends AbstractValidator {
 
         mMaxLength = maxLength;
         mMinLength = minLength;
-        mErrorMessage = "This field must contain between " + mMinLength + " and " + mMaxLength + " characters";
+        try {
+            mErrorMessage = App.getInstance().getContext().getResourceManager()
+                    .getElement(ResourceTable.String_error_range_length).getString(mMinLength, mMaxLength);
+        } catch (NotExistException e) {
+            e.printStackTrace();
+        } catch (WrongTypeException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

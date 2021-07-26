@@ -1,22 +1,36 @@
 package com.pchmn.ohosverify;
 
-import ohos.aafwk.ability.AbilityPackage;
-import ohos.aafwk.ability.delegation.AbilityDelegatorRegistry;
 import ohos.app.Context;
 
 /** A helper class to fetch application context.
  */
-public class App extends AbilityPackage {
+public class App {
 
-    private Context mContext;
+    Context mContext;
+    private volatile static App app;
 
-    @Override
-    public void onInitialize() {
-        super.onInitialize();
-        mContext = AbilityDelegatorRegistry.getAbilityDelegator().getAppContext();
+    private App() {
+
     }
 
-    public Context getmContext() {
+    public void setContext(Context context) {
+        mContext = context;
+    }
+
+    /**
+     * Gets an instance of App class.
+     */
+    public static App getInstance() {
+        if (app == null) {
+            synchronized (App.class) {
+                app = new App();
+            }
+        }
+        return app;
+    }
+
+    public Context getContext() {
         return mContext;
     }
+
 }

@@ -23,7 +23,8 @@
         <!-- email -->
         <com.pchmn.ohosverify.InputValidator
             ohos:width="match_content"
-            ohos:height="match_content">
+            ohos:height="match_content"
+            app:validator="isEmail">
 
             <TextField
                 ohos:width="match_parent"
@@ -60,6 +61,10 @@
             ohos:id="$+id:validate_form1"
             ohos:width="match_content"
             ohos:height="match_content"
+            ohos:top_margin="10vp"
+            ohos:bottom_margin="10vp"
+            ohos:padding="10vp"
+            ohos:background_element="#D7D7D7"
             ohos:text_size="20fp"
             ohos:text="Validate form1"/>
 
@@ -86,7 +91,8 @@
             ohos:id="$+id:tiv1"
             ohos:width="match_content"
             ohos:height="match_content"
-            app:required="true">
+            app:required="true"
+            app:validator="isPhoneNumber">
 
             <TextField
                 ohos:width="match_parent"
@@ -123,6 +129,10 @@
             ohos:id="$+id:validate_form2"
             ohos:width="match_content"
             ohos:height="match_content"
+            ohos:top_margin="10vp"
+            ohos:bottom_margin="10vp"
+            ohos:padding="10vp"
+            ohos:background_element="#D7D7D7"
             ohos:text_size="20fp"
             ohos:text="Validate form2"/>
 
