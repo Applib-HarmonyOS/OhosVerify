@@ -23,7 +23,9 @@ public class App {
     public static App getInstance() {
         if (app == null) {
             synchronized (App.class) {
-                app = new App();
+				if (app == null) {
+					app = new App();
+				}
             }
         }
         return app;
