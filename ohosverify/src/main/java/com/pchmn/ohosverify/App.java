@@ -6,7 +6,7 @@ import ohos.app.Context;
  */
 public class App {
 
-    private static volatile App app;
+    private static atomic App app;
     Context mContext;
 
     private App() {
