@@ -61,6 +61,10 @@
                     ohos:id="$+id:validate_java"
                     ohos:width="match_content"
                     ohos:height="match_content"
+                    ohos:top_margin="10vp"
+                    ohos:bottom_margin="10vp"
+                    ohos:padding="10vp"
+                    ohos:background_element="#D7D7D7"
                     ohos:text_size="20fp"
                     ohos:text="Validate"/>
 

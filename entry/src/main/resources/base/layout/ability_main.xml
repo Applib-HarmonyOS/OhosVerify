@@ -10,28 +10,46 @@
         ohos:id="$+id:btn_java_form"
         ohos:height="match_content"
         ohos:width="match_content"
+        ohos:top_margin="10vp"
+        ohos:bottom_margin="10vp"
+        
+        ohos:padding="10vp"
+        ohos:background_element="#D7D7D7"
         ohos:text="Java Form Ability"
-        ohos:text_size="30fp"/>
+        ohos:text_size="20fp"/>
 
     <Button
         ohos:id="$+id:btn_two_form"
         ohos:height="match_content"
         ohos:width="match_content"
+        ohos:top_margin="10vp"
+        ohos:bottom_margin="10vp"
+        
+        ohos:padding="10vp"
+        ohos:background_element="#D7D7D7"
         ohos:text="Two Form Ability"
-        ohos:text_size="30fp"/>
+        ohos:text_size="20fp"/>
 
     <Button
         ohos:id="$+id:btn_one_form"
         ohos:height="match_content"
         ohos:width="match_content"
+        ohos:top_margin="10vp"
+        ohos:bottom_margin="10vp"
+        ohos:padding="10vp"
+        ohos:background_element="#D7D7D7"
         ohos:text="One Form Ability"
-        ohos:text_size="30fp"/>
+        ohos:text_size="20fp"/>
 
     <Button
         ohos:id="$+id:btn_form_fraction"
         ohos:height="match_content"
         ohos:width="match_content"
+        ohos:top_margin="10vp"
+        ohos:bottom_margin="10vp"
+        ohos:padding="10vp"
+        ohos:background_element="#D7D7D7"
         ohos:text="Form Fraction Ability"
-        ohos:text_size="30fp"/>
+        ohos:text_size="20fp"/>
 
 </DirectionalLayout>

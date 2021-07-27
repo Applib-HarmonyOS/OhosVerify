@@ -3,6 +3,62 @@
     {
       "name": "app_name",
       "value": "OhosVerify"
+    },
+    {
+      "name": "error_invalid_email",
+      "value": "This email is not valid"
+    },
+    {
+      "name": "error_invalid_ip",
+      "value": "This IP address is not valid"
+    },
+    {
+      "name": "error_invalid_phone_number",
+      "value": "This phone number is not valid"
+    },
+    {
+      "name": "error_invalid_url",
+      "value": "This url is not valid"
+    },
+    {
+      "name": "error_invalid_number",
+      "value": "This is not a number"
+    },
+    {
+      "name": "error_min_length",
+      "value": "This field must contain %1$d characters minimum"
+    },
+    {
+      "name": "error_max_length",
+      "value": "This field can contain %1$d characters maximum"
+    },
+    {
+      "name": "error_range_length",
+      "value": "This field must contain between %1$d and %2$d characters"
+    },
+    {
+      "name": "error_min_value",
+      "value": "This field must be greater than %1$d"
+    },
+    {
+      "name": "error_max_value",
+      "value": "This field must be less than %1$d"
+    },
+    {
+      "name": "error_range_value",
+      "value": "This field must be between %1$d and %2$d"
+    },
+    {
+      "name": "error_invalid_field",
+      "value": "This field is not valid"
+    },
+    {
+      "name": "error_field_required",
+      "value": "This field is required"
+    },
+    {
+      "name": "error_fields_mismatch",
+      "value": "The two fields mismatch"
     }
   ]
 }

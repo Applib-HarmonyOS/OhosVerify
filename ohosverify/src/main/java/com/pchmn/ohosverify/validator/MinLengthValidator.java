@@ -1,5 +1,11 @@
 package com.pchmn.ohosverify.validator;
 
+import ohos.hiviewdfx.HiLog;
+import com.pchmn.ohosverify.App;
+import com.pchmn.ohosverify.ResourceTable;
+import java.io.PrintWriter;
+import java.io.StringWriter;
+
 /**
  * Basic unit that validates min length.
  */
@@ -17,7 +23,14 @@ public class MinLengthValidator extends AbstractValidator {
             throw new IllegalArgumentException("You put a negative min length (" + length + ")");
         }
         mLength = length;
-        mErrorMessage = "This field can contain " + mLength + " characters maximum";
+        try {
+            mErrorMessage = App.getInstance().getContext().getResourceManager()
+                    .getElement(ResourceTable.String_error_min_length).getString(mLength);
+        } catch (Exception e) {
+            StringWriter errors = new StringWriter();
+            e.printStackTrace(new PrintWriter(errors));
+            HiLog.error(LABEL, e.toString());
+        }
     }
 
     @Override

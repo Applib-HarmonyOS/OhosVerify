@@ -17,6 +17,7 @@
 package com.pchmn.sample;
 
 import ohos.aafwk.ability.AbilityPackage;
+import com.pchmn.ohosverify.App;
 
 /**
  * Main application class.
@@ -24,6 +25,13 @@ import ohos.aafwk.ability.AbilityPackage;
 public class MyApplication extends AbilityPackage {
     @Override
     public void onInitialize() {
+        App.getInstance().setContext(getContext());
         super.onInitialize();
+    }
+
+    @Override
+    public void onEnd() {
+        App.getInstance().setContext(null);
+        super.onEnd();
     }
 }

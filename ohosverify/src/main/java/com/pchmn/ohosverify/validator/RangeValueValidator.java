@@ -1,5 +1,11 @@
 package com.pchmn.ohosverify.validator;
 
+import ohos.hiviewdfx.HiLog;
+import com.pchmn.ohosverify.App;
+import com.pchmn.ohosverify.ResourceTable;
+import java.io.PrintWriter;
+import java.io.StringWriter;
+
 /**
  * Basic unit that validates if the value lies within a given range.
  */
@@ -7,11 +13,9 @@ public class RangeValueValidator extends AbstractValidator {
 
     private int mMinValue;
     private int mMaxValue;
-    private static String mErrorPrefix = "This field must be between ";
-    private static String mErrorAnd = " and ";
 
     /**
-     * Constructor for RangeLengthValidator.
+     * Constructor   RangeLengthValidator.
      *
      * @param minValue min value allowed in the validator
      *
@@ -24,18 +28,34 @@ public class RangeValueValidator extends AbstractValidator {
 
         mMinValue = minValue;
         mMaxValue = maxValue;
-        mErrorMessage = mErrorPrefix + mMinValue + mErrorAnd + mMaxValue;
+        fetchErrorMessage(false);
     }
 
     @Override
     public boolean isValid(String value) {
         try {
             double d = Double.parseDouble(value);
-            mErrorMessage = mErrorPrefix + mMinValue + mErrorAnd + mMaxValue;
+            fetchErrorMessage(false);
             return d >= mMinValue && d <= mMaxValue;
         } catch (NumberFormatException nfe) {
-            mErrorMessage = mErrorPrefix + mMinValue + mErrorAnd + mMaxValue;
+            fetchErrorMessage(true);
             return false;
+        }
+    }
+
+    private void fetchErrorMessage(boolean isError) {
+        try {
+            if (isError) {
+                mErrorMessage = App.getInstance().getContext().getResourceManager()
+                        .getElement(ResourceTable.String_error_range_value).getString(mMinValue, mMaxValue);
+            } else {
+                mErrorMessage = App.getInstance().getContext().getResourceManager()
+                        .getElement(ResourceTable.String_error_invalid_number).getString();
+            }
+        } catch (Exception e) {
+            StringWriter errors = new StringWriter();
+            e.printStackTrace(new PrintWriter(errors));
+            HiLog.error(LABEL, e.toString());
         }
     }
 

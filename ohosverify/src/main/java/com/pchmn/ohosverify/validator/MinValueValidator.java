@@ -1,12 +1,17 @@
 package com.pchmn.ohosverify.validator;
 
+import ohos.hiviewdfx.HiLog;
+import com.pchmn.ohosverify.App;
+import com.pchmn.ohosverify.ResourceTable;
+import java.io.PrintWriter;
+import java.io.StringWriter;
+
 /**
  * Basic unit that validates min value.
  */
 public class MinValueValidator extends AbstractValidator {
 
     private int mMinValue;
-    private static String mErrorPrefix = "This field must be greater than ";
 
     /**
      * Constructor for MinValueValidator.
@@ -15,18 +20,34 @@ public class MinValueValidator extends AbstractValidator {
      */
     public MinValueValidator(int value) {
         mMinValue = value;
-        mErrorMessage = mErrorPrefix + mMinValue;
+        fetchErrorMessage(false);
     }
 
     @Override
     public boolean isValid(String value) {
         try {
             double d = Double.parseDouble(value);
-            mErrorMessage = mErrorPrefix + mMinValue;
+            fetchErrorMessage(false);
             return d >= mMinValue;
         } catch (NumberFormatException nfe) {
-            mErrorMessage = mErrorPrefix + mMinValue;
+            fetchErrorMessage(true);
             return false;
+        }
+    }
+
+    private void fetchErrorMessage(boolean isError) {
+        try {
+            if (isError) {
+                mErrorMessage = App.getInstance().getContext().getResourceManager()
+                        .getElement(ResourceTable.String_error_min_value).getString(mMinValue);
+            } else {
+                mErrorMessage = App.getInstance().getContext().getResourceManager()
+                        .getElement(ResourceTable.String_error_invalid_number).getString();
+            }
+        } catch (Exception e) {
+            StringWriter errors = new StringWriter();
+            e.printStackTrace(new PrintWriter(errors));
+            HiLog.error(LABEL, e.toString());
         }
     }
 
