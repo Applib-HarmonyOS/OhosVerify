@@ -53,7 +53,7 @@ sonarqube {
         property "sonar.projectKey", "applibgroup_OhosVerify"
         property "sonar.organization", "applibgroup"
         property "sonar.host.url", "https://sonarcloud.io"
-        property "sonar.sources", "entry/src/main,ohosverify"
+        property "sonar.sources", "entry,ohosverify"
         property "sonar.java.binaries", "entry/build,ohosverify/build"
         property "sonar.java.checkstyle.reportPaths", "build/reports/checkstyle/checkstyle.xml"
     }
