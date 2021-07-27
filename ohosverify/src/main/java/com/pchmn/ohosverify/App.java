@@ -6,7 +6,7 @@ import ohos.app.Context;
  */
 public class App {
 
-    private static atomic App app;
+    private static final App app = new App();
     Context mContext;
 
     private App() {
@@ -21,13 +21,6 @@ public class App {
      * Gets an instance of App class.
      */
     public static App getInstance() {
-        if (app == null) {
-            synchronized (App.class) {
-                if (app == null) {
-                    app = new App();
-                }
-            }
-        }
         return app;
     }
 
