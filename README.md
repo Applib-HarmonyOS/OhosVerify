@@ -19,18 +19,26 @@ The library supports rapid and customizable form validation which can be integra
 
   
 ## Dependency
-1. For using LiteGo module in sample app, include the source code and add the below dependencies in entry/build.gradle to generate hap/support.har.
+1. For using Verify module in sample app, include the source code and add the below dependencies in entry/build.gradle to generate hap/support.har.
 ```
 	dependencies {
 		implementation project(':ohosverify')
 		testCompile 'junit:junit:4.12'
 	}
 ```
-2. For using LiteGo module in separate application using har file, add the har file in the entry/libs folder and add the dependencies in entry/build.gradle file.
+2. For using Verify module in separate application using har file, add the har file in the entry/libs folder and add the dependencies in entry/build.gradle file.
 ```
 	dependencies {
 		implementation fileTree(dir: 'libs', include: ['*.har'])
 		testCompile 'junit:junit:4.12'
+	}
+
+```
+3. For using Verify from a remote repository in separate application, add the below dependencies in entry/build.gradle file.
+```
+	dependencies {
+		implementation 'dev.applibgroup:ohosverify:1.0.0'
+        	testCompile 'junit:junit:4.12'
 	}
 
 ```
