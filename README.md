@@ -10,7 +10,7 @@ Ohos library designed for rapid and customizable form validation.
 
 # Source
 
-The library was ported for HarmonyOS from the mentioned Android Library:
+The library is inspired from the mentioned Android Library:
 [AndroidVerify](https://github.com/pchmn/AndroidVerify/) (version 1.0.2)
 
 ## Features
